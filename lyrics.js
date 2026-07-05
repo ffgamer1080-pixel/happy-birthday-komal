@@ -1,40 +1,48 @@
 const lyrics={
 
-1:[
-"Happy Birthday ❤️",
-"You are my beautiful memory"
+lyricsBox1:[
+"Tanne Main Likhu Rani Dil Ki 🥰",
+"",
+"Ya Tanne Mumtaj Likhunga 👰"
 ],
 
-2:[
-"Every smile of yours",
-"makes my day brighter ✨"
+lyricsBox2:[
+"Je Likhne Main Beth Gya Tanne 🤗",
+"",
+"To Pakka Main Kitab Likhunga ✍🏻"
 ],
 
-3:[
-"Stay happy",
-"Stay blessed ❤️"
+lyricsBox3:[
+"Re Hottha Na Gulab Likh Diyu 😊",
+"",
+"Chehre Pe Chand Likhunga 🌙"
 ],
 
-4:[
-"You are special",
-"Forever and always 💖"
+lyricsBox4:[
+"Teri Har Muskaan Meri Duniya Hai ❤️",
+"",
+"Tu Hi Meri Khushi Hai 💕"
 ],
 
-5:[
-"May all your dreams",
-"come true 🌹"
+lyricsBox5:[
+"Har Lamha Tere Naam Kar Du 💖",
+"",
+"Bas Tu Hamesha Muskurati Rahe 😊"
 ],
 
-6:[
+lyricsBox6:[
 "Happy Birthday Komal ❤️",
-"With lots of love 💕"
+"",
+"Stay Happy Forever 🎂"
 ]
 
 };
 
+document.addEventListener("DOMContentLoaded",()=>{
+
 Object.keys(lyrics).forEach(id=>{
 
-const box=document.getElementById("lyricsBox"+id);
+const box=document.getElementById(id);
 
 if(!box)return;
 
@@ -45,6 +53,8 @@ const p=document.createElement("p");
 p.textContent=line;
 
 box.appendChild(p);
+
+});
 
 });
 
