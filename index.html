@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+    <title>Happy Birthday Komal ❤️</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;600&family=Rozha+One&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body>
+
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="light-rays" aria-hidden="true"></div>
+
+    <!-- Splash Screen -->
+    <div id="splashScreen" class="fullscreen-step active">
+        <div class="glass-card splash-content">
+            <h1 class="gold-text-glow cinematic-title">
+                ❤️ A Special Surprise For You ❤️
+            </h1>
+
+            <p class="sub-text">
+                Please ensure your volume is turned UP
+            </p>
+
+            <button id="startButton" class="gold-btn">
+                Tap To Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- Countdown -->
+    <div id="countdownScreen" class="fullscreen-step">
+        <div id="countdownNumber" class="countdown-digit">
+            10
+        </div>
+    </div>
+
+    <!-- Album -->
+    <div id="albumContainer" class="fullscreen-step">
+
+        <div class="book-viewport">
+
+            <div class="book" id="biographyBook">
+
+                <!-- Cover -->
+                <div class="page hard-page cover-front">
+
+                    <div class="page-content book-cover-design">
+
+                        <div class="border-gold"></div>
+
+                        <h2 class="cover-title">
+                            Dastaan-E-
+                            <br>
+                            <span class="gold-glow-text">
+                                ISHQ
+                            </span>
+                        </h2>
+
+                        <div class="heart-lock">
+                            ❤️
+                        </div>
+
+                        <p class="cover-footer">
+                            Dedicated to Komal
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- Page 1 -->
+                <div class="page">
+
+                    <div class="page-content book-paper">
+
+                        <div class="photo-frame ken-burns"
+                            style="background-image:url('assets/photos/pic1.jpg');">
+                        </div>
+
+                        <div class="lyrics-container" id="lyricsBox1"></div>
+
+                    </div>
+
+                </div>
+
+                <!-- Page 2 -->
+                <div class="page">
+
+                    <div class="page-content book-paper">
+
+                        <div class="photo-frame ken-burns"
+                            style="background-image:url('assets/photos/pic2.jpg');">
+                        </div>
+
+                        <div class="lyrics-container" id="lyricsBox2"></div>
+
+                    </div>
+
+                </div>
+
+                <!-- Birthday Wish -->
+                <div class="page hard-page">
+
+                    <div class="page-content book-paper wishes-bg">
+
+                        <div class="wishes-wrapper">
+
+                            <h1 class="wish-title gold-text-glow">
+
+                                Happy Birthday
+
+                                <br>
+
+                                <span class="komal-name">
+                                    KOMAL ❤️
+                                </span>
+
+                            </h1>
+
+                            <p class="wish-letter">
+                                तुम मेरी ज़िन्दगी का वो हसीं ख़्वाब हो,
+                                जिसे मैं हर रोज़ हक़ीक़त में जीना चाहता हूँ।
+                                May your day be wrapped in luxury,
+                                laughter, and endless love.
+                            </p>
+
+                            <div class="cake">
+
+                                <div class="candle"></div>
+
+                                <div class="top-layer"></div>
+
+                                <div class="bottom-layer"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Back Cover -->
+                <div class="page hard-page cover-back">
+
+                    <div class="page-content book-cover-design back-design">
+
+                        <div class="border-gold"></div>
+
+                        <h3 class="gold-glow-text closure-text">
+                            In Infinite Love
+                        </h3>
+
+                        <button id="replayButton"
+                            class="gold-btn compact-btn">
+
+                            Replay Memories ❤️
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="swipe-hint">
+            Swipe or Tap Edges to Turn Pages
+        </div>
+
+    </div>
+
+    <!-- Audio -->
+
+    <audio id="bgMusic"
+        src="music/romantic_track.mp3"
+        preload="auto"
+        loop>
+    </audio>
+
+    <audio id="pageFlipSound"
+        src="music/page_flip.mp3"
+        preload="auto">
+    </audio>
+
+    <!-- Scripts -->
+
+    <script src="lyrics.js"></script>
+    <script src="particles.js"></script>
+    <script src="effects.js"></script>
+    <script src="script.js"></script>
+
+</body>
+  </html>
