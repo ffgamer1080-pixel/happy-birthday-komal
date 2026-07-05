@@ -1,328 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>  <html lang="en">  <head>  <meta charset="UTF-8">  <meta name="viewport"  
+content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<head>
+<title>Happy Birthday Komal ❤️</title>  <link rel="stylesheet" href="style.css">  <link rel="preconnect"  
+href="https://fonts.googleapis.com">  <link rel="preconnect"  
+href="https://fonts.gstatic.com"  
+crossorigin>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@700&display=swap"  
+rel="stylesheet">  </head>  <body>  <canvas id="particleCanvas"></canvas>
 
-<meta charset="UTF-8">
+<div class="background-glow"></div>  <section  
+id="splashScreen"  
+class="screen active">  <div class="welcome-card">  <h1 class="title">  ❤️ Happy Birthday ❤️
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover">
+</h1>  <h2 class="name">  Komal
 
-<title>Happy Birthday Komal ❤️</title>
-
-<link rel="stylesheet" href="style.css">
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;400;600&family=Rozha+One&family=Tiro+Devanagari+Hindi&display=swap"
-rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
-</head>
-
-<body>
-
-<canvas id="particleCanvas"></canvas>
-
-<div class="light-rays"></div>
-
-<!-- Splash Screen -->
-
-<section id="splashScreen" class="fullscreen-step active">
-
-<div class="glass-card">
-
-<h1 class="gold-title">
-❤️ Happy Birthday ❤️
-</h1>
-
-<h2 class="name">
-Komal
-</h2>
-
-<p class="sub">
-A Beautiful Memory Book
+</h2>  <p class="subtitle">  A Luxury Memory Book
 Made With Love ❤️
-</p>
 
-<button
-id="startButton"
+</p>  <button  
+id="startButton"  
 class="gold-btn">
 
 Open Book
 
-</button>
-
-</div>
-
-</section>
-
-<!-- Countdown Screen -->
-
-<section
-id="countdownScreen"
-class="fullscreen-step">
-
-<div
-id="countdownNumber"
-class="countdown-digit">
-
-3
-
-</div>
-
-</section>
-
-<!-- Album -->
-
-<section
-id="albumContainer"
-class="fullscreen-step">
-
-<div class="book-viewport">
-
-<div
-class="book"
-id="birthdayBook">
-
-<!-- FRONT COVER -->
-
-<div class="page hard-page cover-front">
-
-    <div class="page-content book-cover-design">
-
-        <img src="assets/photos/front.jpg" class="cover-image">
-
-        <div class="cover-overlay">
-
-            <h2 class="cover-title">
-                Dastaan-E-Ishq
-            </h2>
-
-            <p class="cover-sub">
-                Dedicated To Komal ❤️
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- PHOTO PAGE 1 -->
-
-<div class="page">
-
-    <div class="page-content book-paper">
-
-        <div class="photo-frame ken-burns"
-        style="background-image:url('assets/photos/pic1.jpg');">
-        </div>
-
-        <div id="lyricsBox1" class="lyrics-container"></div>
-
-    </div>
-
-</div>
-
-<!-- PHOTO PAGE 2 -->
-
-<div class="page">
-
-    <div class="page-content book-paper">
-
-        <div class="photo-frame ken-burns"
-        style="background-image:url('assets/photos/pic2.jpg');">
-        </div>
-
-        <div id="lyricsBox2" class="lyrics-container"></div>
-
-    </div>
-
-</div>
-
-<!-- PHOTO PAGE 3 -->
-
-<div class="page">
-
-    <div class="page-content book-paper">
-
-        <div class="photo-frame ken-burns"
-        style="background-image:url('assets/photos/pic3.jpg');">
-        </div>
-
-        <div id="lyricsBox3" class="lyrics-container"></div>
-
-    </div>
-
-</div>
-
-<!-- PHOTO PAGE 4 -->
-
-<div class="page">
-
-    <div class="page-content book-paper">
-
-        <div class="photo-frame ken-burns"
-        style="background-image:url('assets/photos/pic4.jpg');">
-        </div>
-
-        <div id="lyricsBox4" class="lyrics-container"></div>
-
-    </div>
-
-</div>
-
-<!-- PHOTO PAGE 5 -->
-
-<div class="page">
-
-    <div class="page-content book-paper">
-
-        <div class="photo-frame ken-burns"
-        style="background-image:url('assets/photos/pic5.jpg');">
-        </div>
-
-        <div id="lyricsBox5" class="lyrics-container"></div>
-
-    </div>
-
-</div>
-
-<!-- PHOTO PAGE 6 -->
-
-<div class="page">
-
-    <div class="page-content book-paper">
-
-        <div class="photo-frame ken-burns"
-        style="background-image:url('assets/photos/pic6.jpg');">
-        </div>
-
-        <div id="lyricsBox6" class="lyrics-container"></div>
-
-    </div>
-
-</div>
-
-<!-- BIRTHDAY PAGE -->
-
-<div class="page hard-page">
-
-    <div class="page-content book-paper">
-
-        <div class="wishes-wrapper">
-
-            <h1 class="wish-title">
-                Happy Birthday
-            </h1>
-
-            <h2 class="komal-name">
-                KOMAL ❤️
-            </h2>
-
-            <p class="wish-letter">
-                Wishing you endless happiness,
-                success, smiles and beautiful memories.
-                May every dream of yours come true.
-                Stay happy forever. ❤️
-            </p>
-
-            <div class="cake">
-
-                <div class="candle"></div>
-
-                <div class="top-layer"></div>
-
-                <div class="bottom-layer"></div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- BACK COVER -->
-
-<div class="page hard-page cover-back">
-
-    <div class="page-content book-cover-design">
-
-        <img
-        src="assets/photos/back.jpg"
-        class="cover-image">
-
-        <div class="cover-overlay">
-
-            <h2 class="cover-title">
-
-                Forever ❤️
-
-            </h2>
-
-            <p class="cover-sub">
-
-                Made With Love
-
-            </p>
-
-            <button
-            id="replayButton"
-            class="gold-btn">
-
-                Replay Memories
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="swipe-hint">
-
-Swipe Left / Right To Turn Pages
-
-</div>
-
-</section>
-
-<audio
-id="bgMusic"
-src="music/romantic_track.mp3"
+</button>  </div>  </section>  <section  
+id="countdownScreen"  
+class="screen">  <div  
+id="countdownNumber"  
+class="countdown-number">  3
+
+</div>  </section>  <section  
+id="albumContainer"  
+class="screen">  <div  
+class="book"  
+id="book">  
+<!-- Front Cover -->  <div class="page cover front-cover">  <div class="cover-content">  <img  
+src="assets/photos/front.jpg"  
+class="cover-image"  
+alt="Front Cover">
+
+<div class="cover-overlay">  <h2 class="cover-title">  Dastaan-E-Ishq ❤️
+
+</h2>  <p class="cover-subtitle">  A Book of Beautiful Memories
+
+</p>  </div>  </div>  </div>  <!-- Photo Page 1 -->  <div class="page">  <div class="page-content">  <img  
+src="assets/photos/pic1.jpg"  
+class="photo"  
+alt="Photo 1">
+
+<div  
+id="lyricsBox1"  
+class="lyrics-container">  
+</div>  </div>  </div>  <!-- Photo Page 2 -->  <div class="page">  <div class="page-content">  <img  
+src="assets/photos/pic2.jpg"  
+class="photo"  
+alt="Photo 2">
+
+<div  
+id="lyricsBox2"  
+class="lyrics-container">  
+</div>  </div>  </div>  <!-- Photo Page 3 -->  <div class="page">  <div class="page-content">  <img  
+src="assets/photos/pic3.jpg"  
+class="photo"  
+alt="Photo 3">
+
+<div  
+id="lyricsBox3"  
+class="lyrics-container">  
+</div>  </div>  </div>  
+<!-- Photo Page 4 -->  <div class="page">  <div class="page-content">  <img  
+src="assets/photos/pic4.jpg"  
+class="photo"  
+alt="Photo 4">
+
+<div  
+id="lyricsBox4"  
+class="lyrics-container">  
+</div>  </div>  </div>  <!-- Photo Page 5 -->  <div class="page">  <div class="page-content">  <img  
+src="assets/photos/pic5.jpg"  
+class="photo"  
+alt="Photo 5">
+
+<div  
+id="lyricsBox5"  
+class="lyrics-container">  
+</div>  </div>  </div>  <!-- Photo Page 6 -->  <div class="page">  <div class="page-content">  <img  
+src="assets/photos/pic6.jpg"  
+class="photo"  
+alt="Photo 6">
+
+<div  
+id="lyricsBox6"  
+class="lyrics-container">  
+</div>  </div>  </div>  <!-- Birthday Page -->  <div class="page birthday-page">  <div class="page-content birthday-content">  <h1 class="birthday-title">  Happy Birthday ❤️
+
+</h1>  <h2 class="birthday-name">  Komal
+
+</h2>  <p class="birthday-message">  May your life always be filled with
+love, happiness, success and beautiful memories.
+Stay blessed forever. ❤️
+
+</p>  </div>  </div>  
+<!-- Back Cover -->  <div class="page cover back-cover">  <div class="cover-content">  <img  
+src="assets/photos/back.jpg"  
+class="cover-image"  
+alt="Back Cover">
+
+<div class="cover-overlay">  <h2 class="cover-title">  Forever ❤️
+
+</h2>  <p class="cover-subtitle">  Made With Love
+
+</p>  <button  
+id="replayButton"  
+class="gold-btn">
+
+Replay Memories
+
+</button>  </div>  </div>  </div>  </div>  <div class="swipe-hint">  ⬅️ Swipe Left or Right to Turn Pages ➡️
+
+</div>  </section>  <audio  
+id="bgMusic"  
+src="music/romantic_track.mp3"  
+preload="auto"  
 loop>
 </audio>
 
-<audio
-id="pageFlipSound"
-src="music/page_flip.mp3">
+<audio  
+id="pageFlipSound"  
+src="music/page_flip.mp3"  
+preload="auto">
 </audio>
 
-<script src="lyrics.js"></script>
-
-<script src="particles.js"></script>
-
-<script src="effects.js"></script>
-
-<script src="script.js"></script>
-
-</body>
-
-</html>
-
-
-
-
+<script src="particles.js"></script>  <script src="lyrics.js"></script>  <script src="effects.js"></script>  <script src="script.js"></script>  </body>  </html>
