@@ -1,23 +1,51 @@
-// Chronological timeline script for the lyric engine
-const lyricTimeline = [
-    {
-        time: 2.5,
-        hindi: "तन्ने मैं लिखूँ ",
-        english: "RANI DIL KI"
-    },
-    {
-        time: 6.8,
-        hindi: "YA TANNE ",
-        english: "MUMTAZ लिखूँगा"
-    },
-    {
-        time: 11.2,
-        hindi: "JE लिखने में बैठ गया TANNE",
-        english: ""
-    },
-    {
-        time: 14.5,
-        hindi: "TO PAKKA मैं ",
-        english: "KITAB लिखूँगा"
-    }
-];
+const lyrics={
+
+1:[
+"Happy Birthday ❤️",
+"You are my beautiful memory"
+],
+
+2:[
+"Every smile of yours",
+"makes my day brighter ✨"
+],
+
+3:[
+"Stay happy",
+"Stay blessed ❤️"
+],
+
+4:[
+"You are special",
+"Forever and always 💖"
+],
+
+5:[
+"May all your dreams",
+"come true 🌹"
+],
+
+6:[
+"Happy Birthday Komal ❤️",
+"With lots of love 💕"
+]
+
+};
+
+Object.keys(lyrics).forEach(id=>{
+
+const box=document.getElementById("lyricsBox"+id);
+
+if(!box)return;
+
+lyrics[id].forEach(line=>{
+
+const p=document.createElement("p");
+
+p.textContent=line;
+
+box.appendChild(p);
+
+});
+
+});
