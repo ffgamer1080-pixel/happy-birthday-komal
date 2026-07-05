@@ -1,155 +1,99 @@
-class ParticleEngine{
-
-constructor(){
-
-this.canvas=document.getElementById("particleCanvas");
-
-if(!this.canvas)return;
-
-this.ctx=this.canvas.getContext("2d");
-
-this.particles=[];
-
-this.running=false;
-
-this.resize();
-
-window.addEventListener("resize",()=>this.resize());
-
-this.createParticles();
-
-this.start();
-
-}
-
-resize(){
-
-this.canvas.width=window.innerWidth;
-
-this.canvas.height=window.innerHeight;
-
-}
-
-createParticles(){
-
-this.particles=[];
-
-for(let i=0;i<100;i++){
-
-this.particles.push({
-
-x:Math.random()*this.canvas.width,
-
-y:Math.random()*this.canvas.height,
-
-size:Math.random()*4+2,
-
-speedX:(Math.random()-0.5)*0.8,
-
-speedY:Math.random()*1.2+0.4,
-
-opacity:Math.random()*0.5+0.3,
-
-angle:Math.random()*360,
-
-rotation:(Math.random()-0.5)*2,
-
-color:Math.random()>0.5?"#FFD700":"#FF4D6D"
-
-});
-
-}
-
-}
-draw(){
-
-this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
-
-this.particles.forEach(p=>{
-
-this.ctx.save();
-
-this.ctx.globalAlpha=p.opacity;
-
-this.ctx.translate(p.x,p.y);
-
-this.ctx.rotate(p.angle*Math.PI/180);
-
-this.ctx.fillStyle=p.color;
-
-this.ctx.beginPath();
-
-this.ctx.arc(0,0,p.size,0,Math.PI*2);
-
-this.ctx.fill();
-
-this.ctx.restore();
-
-});
-
-}
-
-animate(){
-
-if(!this.running)return;
-
-this.draw();
-
-this.particles.forEach(p=>{
-
-p.x+=p.speedX;
-
-p.y+=p.speedY;
-
-p.angle+=p.rotation;
-
-if(p.y>this.canvas.height+20){
-
-p.y=-20;
-
-p.x=Math.random()*this.canvas.width;
-
-}
-
-if(p.x<-20){
-
-p.x=this.canvas.width+20;
-
-}
-
-if(p.x>this.canvas.width+20){
-
-p.x=-20;
-
-}
-
-});
-
-requestAnimationFrame(()=>this.animate());
-
-}
-start(){
-
-if(!this.canvas || !this.ctx)return;
-
-if(this.running)return;
-
-this.running=true;
-
-this.animate();
-
-}
-
-stop(){
-
-this.running=false;
-
-}
-
-}
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-new ParticleEngine();
-
-});
+(function() {
+    const canvas = document.getElementById("particleCanvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+
+    let particlesArray = [];
+    const maxParticles = 60; // Performance balance baseline
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.resizeCanvas = resizeCanvas;
+    resizeCanvas();
+
+    // Particle Object Defintion Blueprint
+    class PremiumParticle {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = canvas.height + Math.random() * 100;
+            this.size = Math.random() * 3 + 1;
+            this.speedX = Math.random() * 1 - 0.5;
+            this.speedY = -(Math.random() * 1.5 + 0.5);
+            this.type = Math.random() > 0.4 ? 'gold' : 'rose';
+            this.alpha = Math.random() * 0.5 + 0.3;
+            this.rotation = Math.random() * Math.PI * 2;
+            this.rotationSpeed = Math.random() * 0.02 - 0.01;
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.rotation += this.rotationSpeed;
+
+            // Fade out near top boundaries
+            if (this.y < 50) {
+                this.alpha -= 0.005;
+            }
+
+            // Recalculate allocation check conditions
+            if (this.alpha <= 0 || this.x < 0 || this.x > canvas.width || this.y < -20) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            ctx.save();
+            ctx.globalAlpha = this.alpha;
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation);
+
+            if (this.type === 'gold') {
+                // Glow ambient light drop
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = "#d4af37";
+                ctx.fillStyle = "rgba(243, 229, 171, 0.8)";
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            } else {
+                // Heart shape vectors representation logic
+                ctx.fillStyle = "rgba(215, 45, 95, 0.7)";
+                ctx.beginPath();
+                let width = this.size * 2 + 2;
+                let height = this.size * 2 + 2;
+                ctx.moveTo(0, height / 4);
+                ctx.bezierCurveTo(width / 2, -height / 2, width, height / 4, 0, height);
+                ctx.bezierCurveTo(-width, height / 4, -width / 2, -height / 2, 0, height / 4);
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+    }
+
+    // Population Pipeline setup initialization
+    function initParticles() {
+        particlesArray = [];
+        for (let i = 0; i < maxParticles; i++) {
+            particlesArray.push(new PremiumParticle());
+        }
+    }
+    initParticles();
+
+    // Infinite 60 FPS Application Frame Loop
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+            particlesArray[i].draw();
+        }
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+})();
