@@ -4,9 +4,9 @@
 
 --gold:#f7d774;
 
---rose:#ff4d6d;
-
 --white:#ffffff;
+
+--rose:#ff4d6d;
 
 --glass:rgba(255,255,255,.08);
 
@@ -31,17 +31,21 @@ height:100%;
 
 overflow:hidden;
 
-font-family:Poppins,sans-serif;
+font-family:"Poppins",sans-serif;
 
 background:var(--bg);
 
-color:#fff;
+color:var(--white);
 
 }
 
 body{
 
 position:relative;
+
+-webkit-tap-highlight-color:transparent;
+
+touch-action:manipulation;
 
 }
 
@@ -57,21 +61,196 @@ width:100%;
 
 height:100%;
 
-z-index:1;
-
 pointer-events:none;
+
+z-index:1;
 
 }
 
-.book-viewport{
+.background-glow{
 
-width:90vw;
+position:fixed;
 
-height:80vh;
+inset:0;
+
+background:
+radial-gradient(circle at top,
+rgba(255,215,120,.18),
+transparent 60%);
+
+pointer-events:none;
+
+z-index:2;
+
+}
+
+.screen{
+
+position:absolute;
+
+inset:0;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+z-index:5;
+
+}
+
+.screen.active{
+
+display:flex;
+
+}
+.welcome-card{
+
+width:90%;
 
 max-width:380px;
 
-perspective:1800px;
+padding:35px;
+
+border-radius:24px;
+
+background:var(--glass);
+
+backdrop-filter:blur(18px);
+
+-webkit-backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.12);
+
+text-align:center;
+
+box-shadow:0 15px 40px rgba(0,0,0,.45);
+
+z-index:10;
+
+}
+
+.title{
+
+font-family:"Cinzel Decorative",serif;
+
+font-size:2rem;
+
+color:var(--gold);
+
+margin-bottom:12px;
+
+}
+
+.name{
+
+font-family:"Cinzel",serif;
+
+font-size:2.4rem;
+
+margin-bottom:15px;
+
+color:var(--white);
+
+}
+
+.subtitle{
+
+font-size:1rem;
+
+line-height:1.8;
+
+opacity:.9;
+
+margin-bottom:30px;
+
+}
+
+.gold-btn{
+
+padding:14px 34px;
+
+border:none;
+
+border-radius:40px;
+
+background:linear-gradient(135deg,#f7d774,#ffb347);
+
+color:#222;
+
+font-size:1rem;
+
+font-weight:700;
+
+cursor:pointer;
+
+box-shadow:0 8px 25px rgba(247,215,116,.35);
+
+transition:all .3s ease;
+
+}
+
+.gold-btn:hover{
+
+transform:scale(1.05);
+
+}
+
+.gold-btn:active{
+
+transform:scale(.96);
+
+}
+
+.countdown-number{
+
+font-size:7rem;
+
+font-family:"Cinzel Decorative",serif;
+
+color:var(--gold);
+
+text-shadow:0 0 25px rgba(247,215,116,.8);
+
+animation:pulse 1s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.15);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+.book{
+
+position:relative;
+
+width:360px;
+
+height:520px;
+
+margin:auto;
+
+perspective:2000px;
+
+transform-style:preserve-3d;
 
 display:flex;
 
@@ -79,17 +258,7 @@ justify-content:center;
 
 align-items:center;
 
-}
-
-.book{
-
-position:relative;
-
-width:100%;
-
-height:100%;
-
-transform-style:preserve-3d;
+z-index:10;
 
 }
 
@@ -101,19 +270,31 @@ width:100%;
 
 height:100%;
 
-left:0;
-
 top:0;
 
-transform-origin:left center;
+left:0;
 
-transition:transform .9s ease;
+background:#ffffff;
+
+border-radius:16px;
+
+overflow:hidden;
+
+transform-origin:left center;
 
 transform-style:preserve-3d;
 
 backface-visibility:hidden;
 
+-webkit-backface-visibility:hidden;
+
+transition:transform .8s ease;
+
+box-shadow:0 15px 35px rgba(0,0,0,.35);
+
 cursor:pointer;
+
+will-change:transform;
 
 }
 
@@ -125,39 +306,41 @@ transform:rotateY(-180deg);
 
 .page-content{
 
-position:absolute;
-
 width:100%;
 
 height:100%;
 
-border-radius:18px;
+display:flex;
 
-overflow:hidden;
+flex-direction:column;
 
-}
+padding:18px;
 
-.book-paper{
-
-background:#faf6ef;
-
-color:#222;
-
-padding:20px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.35);
+background:#faf8f4;
 
 }
 
-.book-cover-design{
+.cover{
 
-width:100%;
+background:#1b0f14;
 
-height:100%;
+color:#ffffff;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.cover-content{
 
 position:relative;
 
-background:#2b0014;
+width:100%;
+
+height:100%;
 
 overflow:hidden;
 
@@ -171,6 +354,14 @@ height:100%;
 
 object-fit:cover;
 
+transition:transform .8s ease;
+
+}
+
+.cover:hover .cover-image{
+
+transform:scale(1.05);
+
 }
 
 .cover-overlay{
@@ -183,9 +374,9 @@ right:0;
 
 bottom:0;
 
-padding:25px;
+padding:22px;
 
-background:linear-gradient(transparent,rgba(0,0,0,.85));
+background:linear-gradient(transparent,rgba(0,0,0,.88));
 
 text-align:center;
 
@@ -197,59 +388,45 @@ font-family:"Cinzel Decorative",serif;
 
 font-size:2rem;
 
-color:#fff;
+color:#ffffff;
 
 }
 
-.cover-sub{
+.cover-subtitle{
 
-margin-top:8px;
-
-color:#f7d774;
+margin-top:10px;
 
 font-size:1rem;
 
+color:var(--gold);
+
 }
 
-.photo-frame{
+.photo{
 
 width:100%;
 
-height:58%;
+height:62%;
 
-border-radius:14px;
+object-fit:cover;
 
-background-size:cover;
+border-radius:12px;
 
-background-position:center;
+box-shadow:0 8px 20px rgba(0,0,0,.25);
 
-box-shadow:0 10px 20px rgba(0,0,0,.25);
-
-}
-
-.ken-burns{
-
-animation:kenburns 12s ease-in-out infinite alternate;
+transition:transform .6s ease;
 
 }
 
-@keyframes kenburns{
+.page:hover .photo{
 
-0%{
-
-transform:scale(1);
-
-}
-
-100%{
-
-transform:scale(1.12);
-
-}
+transform:scale(1.03);
 
 }
 
 .lyrics-container{
+
+width:100%;
 
 height:38%;
 
@@ -263,21 +440,17 @@ align-items:center;
 
 text-align:center;
 
-padding:12px;
+padding:15px;
 
 font-size:1rem;
 
-line-height:1.7;
+line-height:1.8;
+
+color:#333;
 
 }
 
-.wishes-wrapper{
-
-height:100%;
-
-display:flex;
-
-flex-direction:column;
+.birthday-content{
 
 justify-content:center;
 
@@ -287,43 +460,39 @@ text-align:center;
 
 }
 
-.wish-title{
-
-font-size:2rem;
+.birthday-title{
 
 font-family:"Cinzel Decorative",serif;
 
-color:#b8860b;
+font-size:2.2rem;
+
+color:var(--gold);
+
+margin-bottom:15px;
 
 }
 
-.komal-name{
+.birthday-name{
 
-font-size:2.3rem;
+font-size:2.5rem;
 
-margin:12px 0;
+color:var(--rose);
 
-color:#ff4d6d;
+margin-bottom:18px;
 
-font-family:"Rozha One",serif;
+font-weight:700;
 
 }
 
-.wish-letter{
+.birthday-message{
 
-max-width:90%;
+font-size:1rem;
 
 line-height:1.8;
 
-font-size:.95rem;
+color:#444;
 
-}
-
-.cake{
-
-margin-top:25px;
-
-font-size:4rem;
+max-width:90%;
 
 }
 
@@ -331,45 +500,204 @@ font-size:4rem;
 
 position:absolute;
 
-bottom:15px;
+left:50%;
 
-width:100%;
+bottom:20px;
 
-text-align:center;
+transform:translateX(-50%);
 
-font-size:.85rem;
+font-size:.9rem;
 
-color:#ddd;
+color:rgba(255,255,255,.9);
 
 letter-spacing:1px;
 
-}
+z-index:20;
 
-@media(max-width:600px){
-
-.book-viewport{
-
-width:96vw;
-
-height:78vh;
+text-align:center;
 
 }
 
-.gold-title{
+@media(max-width:768px){
+
+.book{
+
+width:92vw;
+
+height:70vh;
+
+}
+
+.title{
 
 font-size:1.7rem;
 
 }
 
-.cover-title{
+.name{
 
-font-size:1.6rem;
+font-size:2rem;
 
 }
 
-.komal-name{
+.birthday-name{
 
 font-size:2rem;
+
+}
+
+.photo{
+
+height:58%;
+
+}
+
+.lyrics-container{
+
+height:42%;
+
+font-size:.9rem;
+
+}
+
+}
+.page img{
+
+user-select:none;
+
+-webkit-user-drag:none;
+
+pointer-events:none;
+
+}
+
+.fade-in{
+
+animation:fadeIn .8s ease forwards;
+
+}
+
+.fade-out{
+
+animation:fadeOut .5s ease forwards;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(15px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes fadeOut{
+
+from{
+
+opacity:1;
+
+}
+
+to{
+
+opacity:0;
+
+}
+
+}
+
+::-webkit-scrollbar{
+
+display:none;
+
+}
+
+img{
+
+max-width:100%;
+
+display:block;
+
+}
+
+button{
+
+font-family:"Poppins",sans-serif;
+
+outline:none;
+
+}
+
+audio{
+
+display:none;
+
+}
+
+@media(max-width:480px){
+
+.book{
+
+width:95vw;
+
+height:68vh;
+
+}
+
+.welcome-card{
+
+width:92%;
+
+padding:28px;
+
+}
+
+.title{
+
+font-size:1.5rem;
+
+}
+
+.name{
+
+font-size:1.8rem;
+
+}
+
+.cover-title{
+
+font-size:1.5rem;
+
+}
+
+.cover-subtitle{
+
+font-size:.9rem;
+
+}
+
+.birthday-title{
+
+font-size:1.8rem;
+
+}
+
+.birthday-name{
+
+font-size:1.7rem;
 
 }
 
