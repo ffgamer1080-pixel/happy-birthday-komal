@@ -6,15 +6,15 @@ const countdown=document.getElementById("countdownScreen");
 
 const album=document.getElementById("albumContainer");
 
-const startBtn=document.getElementById("startButton");
+const startButton=document.getElementById("startButton");
 
-const replayBtn=document.getElementById("replayButton");
+const replayButton=document.getElementById("replayButton");
 
-const count=document.getElementById("countdownNumber");
+const countdownNumber=document.getElementById("countdownNumber");
 
-const music=document.getElementById("bgMusic");
+const bgMusic=document.getElementById("bgMusic");
 
-const flip=document.getElementById("pageFlipSound");
+const pageFlip=document.getElementById("pageFlipSound");
 
 const pages=document.querySelectorAll(".page");
 
@@ -22,19 +22,29 @@ let currentPage=0;
 
 function showScreen(screen){
 
-splash.classList.remove("active");
+document.querySelectorAll(".screen").forEach(s=>{
 
-countdown.classList.remove("active");
+s.classList.remove("active");
 
-album.classList.remove("active");
+});
+
+if(screen){
 
 screen.classList.add("active");
 
 }
 
-startBtn.addEventListener("click",()=>{
+}
 
-music.play().catch(()=>{});
+if(startButton){
+
+startButton.addEventListener("click",()=>{
+
+if(bgMusic){
+
+bgMusic.play().catch(()=>{});
+
+}
 
 showScreen(countdown);
 
@@ -42,19 +52,28 @@ startCountdown();
 
 });
 
+}
+
 function startCountdown(){
 
-let n=3;
+let number=3;
 
-count.innerHTML=n;
+if(countdownNumber){
 
+countdownNumber.textContent=number;
+
+}
 const timer=setInterval(()=>{
 
-n--;
+number--;
 
-if(n>0){
+if(number>0){
 
-count.innerHTML=n;
+if(countdownNumber){
+
+countdownNumber.textContent=number;
+
+}
 
 }else{
 
@@ -74,15 +93,15 @@ page.style.zIndex=pages.length-index;
 
 page.addEventListener("click",()=>{
 
-if(currentPage!==index)return;
+if(index!==currentPage)return;
 
 page.classList.add("flipped");
 
-if(flip){
+if(pageFlip){
 
-flip.currentTime=0;
+pageFlip.currentTime=0;
 
-flip.play().catch(()=>{});
+pageFlip.play().catch(()=>{});
 
 }
 
@@ -91,20 +110,23 @@ currentPage++;
 });
 
 });
+let touchStartX=0;
 
-let touchStart=0;
+if(album){
 
 album.addEventListener("touchstart",(e)=>{
 
-touchStart=e.touches[0].clientX;
+touchStartX=e.touches[0].clientX;
 
 });
 
 album.addEventListener("touchend",(e)=>{
 
-const touchEnd=e.changedTouches[0].clientX;
+const touchEndX=e.changedTouches[0].clientX;
 
-if(touchStart-touchEnd>50){
+const distance=touchStartX-touchEndX;
+
+if(distance>50){
 
 if(currentPage<pages.length){
 
@@ -112,9 +134,7 @@ pages[currentPage].click();
 
 }
 
-}
-
-if(touchEnd-touchStart>50){
+}else if(distance<-50){
 
 if(currentPage>0){
 
@@ -124,13 +144,24 @@ pages[currentPage].classList.remove("flipped");
 
 pages[currentPage].style.zIndex=pages.length-currentPage;
 
+if(pageFlip){
+
+pageFlip.currentTime=0;
+
+pageFlip.play().catch(()=>{});
+
+}
+
 }
 
 }
 
 });
 
-replayBtn.addEventListener("click",()=>{
+}
+if(replayButton){
+
+replayButton.addEventListener("click",()=>{
 
 pages.forEach((page,index)=>{
 
@@ -142,9 +173,27 @@ page.style.zIndex=pages.length-index;
 
 currentPage=0;
 
-music.currentTime=0;
+if(bgMusic){
+
+bgMusic.pause();
+
+bgMusic.currentTime=0;
+
+}
 
 showScreen(splash);
+
+});
+
+}
+
+window.addEventListener("resize",()=>{
+
+pages.forEach((page,index)=>{
+
+page.style.zIndex=pages.length-index;
+
+});
 
 });
 
