@@ -1,358 +1,332 @@
-:root {
-    --primary-rose: #8b001a;
-    --romantic-pink: #ff4d6d;
-    --luxury-gold: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fbf5b7 75%, #aa771c 100%);
-    --gold-shadow: 0 0 15px rgba(251, 245, 183, 0.6);
-    --glass-bg: rgba(255, 255, 255, 0.06);
-    --glass-border: rgba(255, 255, 255, 0.12);
+:root{
+...
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    -webkit-user-select: none;
+*{
+...
 }
 
-body, html {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #050102;
-    font-family: 'Poppins', sans-serif;
-    color: #ffffff;
+html,
+body{
+...
 }
 
-/* Structural Pipeline States */
-.fullscreen-step {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 10;
-    overflow: hidden;
+body{
+...
 }
 
-.fullscreen-step.active {
-    display: flex;
+canvas{
+...
 }
 
-/* Background Atmospheric Canvas & Light Rays */
-#particleCanvas {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 2;
-    will-change: transform;
+.book-viewport{
+
+width:90vw;
+
+height:80vh;
+
+max-width:380px;
+
+perspective:1800px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
 }
 
-.light-rays {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 50% -20%, rgba(255,77,109,0.15) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 1;
+.book{
+
+position:relative;
+
+width:100%;
+
+height:100%;
+
+transform-style:preserve-3d;
+
 }
 
-/* Glassmorphism Interfaces */
-.glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 40px 24px;
-    width: 90%;
-    max-width: 380px;
-    text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.2);
+.page{
+
+position:absolute;
+
+width:100%;
+
+height:100%;
+
+left:0;
+
+top:0;
+
+transform-origin:left center;
+
+transition:transform .9s ease;
+
+transform-style:preserve-3d;
+
+backface-visibility:hidden;
+
+cursor:pointer;
+
 }
 
-.cinematic-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-    line-height: 1.6;
+.page.flipped{
+
+transform:rotateY(-180deg);
+
 }
 
-.gold-text-glow {
-    background: var(--luxury-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0px 2px 5px rgba(179,135,40,0.5));
+.page-content{
+
+position:absolute;
+
+width:100%;
+
+height:100%;
+
+border-radius:18px;
+
+overflow:hidden;
+
 }
 
-.gold-glow-text {
-    background: var(--luxury-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.book-paper{
+
+background:#faf6ef;
+
+color:#222;
+
+padding:20px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.35);
+
 }
 
-.sub-text {
-    font-size: 0.85rem;
-    color: rgba(255,255,255,0.6);
-    margin-bottom: 30px;
-    letter-spacing: 1px;
+.book-cover-design{
+
+width:100%;
+
+height:100%;
+
+position:relative;
+
+background:#2b0014;
+
+overflow:hidden;
+
 }
 
-/* Premium Navigation Buttons */
-.gold-btn {
-    background: var(--luxury-gold);
-    color: #111;
-    border: none;
-    padding: 14px 32px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    border-radius: 50px;
-    cursor: pointer;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    box-shadow: var(--gold-shadow);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.gold-btn:active {
-    transform: scale(0.95);
-}
-
-/* STEP 2: Cinematic Countdown Display */
-.countdown-digit {
-    font-family: 'Cinzel', serif;
-    font-size: 7rem;
-    font-weight: 700;
-    background: var(--luxury-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 25px rgba(252,246,186,0.7));
-    transform: scale(0.5);
-    opacity: 0;
-    will-change: transform, opacity;
-}
-
-/* STEP 3: 3D Book Layout Engines */
-.book-viewport {
-    width: 90vw;
-    height: 70vh;
-    max-width: 360px;
-    max-height: 560px;
-    perspective: 1500px;
-    -webkit-perspective: 1500px;
-}
-
-.book {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-}
-
-.page {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: left center;
-    -webkit-transform-origin: left center;
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    z-index: 5;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-}
-
-.page-content {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    padding: 20px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    overflow: hidden;
-}
-
-.book-paper {
-    background-color: #faf6ee;
-    background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0);
-    background-size: 4px 4px;
-    color: #222;
-    border-radius: 0 16px 16px 0;
-    box-shadow: inset 15px 0 30px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.15);
-}
-
-.book-cover-design {
-    background: linear-gradient(135deg, #4a000b 0%, #1a0003 100%);
-    border-radius: 0 16px 16px 0;
-    border: 2px solid #aa771c;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 40px 20px;
-}
-
-.border-gold {
-    position: absolute;
-    top: 15px; left: 15px; right: 15px; bottom: 15px;
-    border: 1px solid rgba(170,119,28,0.4);
-    pointer-events: none;
-}
-
-.cover-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 2rem;
-    text-align: center;
-    color: #fff;
-    margin-top: 40px;
-}
-
-.heart-lock {
-    font-size: 3rem;
-    filter: drop-shadow(0 0 10px rgba(255,77,109,0.6));
-}
-
-.cover-footer {
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    color: rgba(255,255,255,0.5);
-    text-transform: uppercase;
-}
-
-.page.flipped {
-    transform: rotateY(-180deg);
-}
-
-/* STEP 7: Ken Burns Visual Frames */
-.photo-frame {
-    width: 100%;
-    height: 55%;
-    border-radius: 8px;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2), inset 0 0 50px rgba(0,0,0,0.2);
-    will-change: transform;
-}
-
-.ken-burns {
-    animation: kenburnsEff 12s infinite alternate ease-in-out;
-}
-
-@keyframes kenburnsEff {
-    0% { transform: scale(1.0); }
-    100% { transform: scale(1.12) translate(1%, 2%); }
-}
-
-/* STEP 5: Lyric Presentation Framework */
-.lyrics-container {
-    width: 100%;
-    height: 40%;
-    margin-top: 5%;
-    padding: 10px 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    will-change: transform, opacity, filter;
-}
-
-.lyric-line {
-    font-size: 1.15rem;
-    line-height: 1.6;
-    margin-bottom: 8px;
-    font-weight: 500;
-    min-height: 1.6rem;
-}
-
-.lyric-line span.devanagari {
-    font-family: 'Tiro Devanagari Hindi', serif;
-    color: #333;
-    font-size: 1.25rem;
-}
-
-.lyric-line span.english-premium {
-    font-family: 'Cinzel', serif;
-    font-weight: 700;
-    color: #8b001a;
-    letter-spacing: 1px;
-}
-
-/* STEP 8: Celebration Screen Typography & Birthday Layouts */
-.wishes-wrapper {
-    text-align: center;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    color: #222;
-}
-
-.wish-title {
-    font-family: 'Cinzel Decorative', serif;
-    font-size: 1.6rem;
-}
-
-.komal-name {
-    font-family: 'Rozha One', serif;
-    font-size: 2.1rem;
-    color: var(--primary-rose);
-}
-
-.wish-letter {
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.85rem;
-    line-height: 1.7;
-    color: #444;
-    padding: 0 10px;
-    font-weight: 500;
-}
-
-/* Procedural Vector CSS Cake Architecture */
-.cake {
-    position: relative;
-    width: 80px; height: 60px;
-    margin-bottom: 10px;
-}
-
-.bottom-layer, .top-layer {
-    position: absolute; width: 100%; background: #e0aaff; border-radius: 6px 6px 0 0;
-}
-
-.bottom-layer { height: 35px; bottom: 0; background: #c8b6ff; }
-.top-layer { height: 20px; bottom: 35px; width: 84%; left: 8%; background: #ffc6ff; }
-
-.candle {
-    position: absolute; width: 6px; height: 20px; background: #ffadad; top: -15px; left: 50%; transform: translateX(-50%);
-}
-
-.candle::before {
-    content: ''; position: absolute; width: 6px; height: 8px; background: #ffd166; border-radius: 50%; top: -9px; left: 0;
-    box-shadow: 0 0 8px #ffd166; animation: flicker 0.6s infinite alternate;
-}
-
-@keyframes flicker { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
-
-.swipe-hint {
-    position: absolute; bottom: 4vh; font-size: 0.75rem; color: rgba(255,255,255,0.4);
-    letter-spacing: 2px; text-transform: uppercase; pointer-events: none; text-align: center; width: 100%;
-}
-
-.compact-btn { padding: 10px 24px; font-size: 0.8rem; margin-top: 30px; }
 .cover-image{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:16px;
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.cover-overlay{
+
+position:absolute;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+padding:25px;
+
+background:linear-gradient(transparent,rgba(0,0,0,.85));
+
+text-align:center;
+
+}
+
+.cover-title{
+
+font-family:"Cinzel Decorative",serif;
+
+font-size:2rem;
+
+color:#fff;
+
+}
+
+.cover-sub{
+
+margin-top:8px;
+
+color:#f7d774;
+
+font-size:1rem;
+
+}
+
+.photo-frame{
+
+width:100%;
+
+height:58%;
+
+border-radius:14px;
+
+background-size:cover;
+
+background-position:center;
+
+box-shadow:0 10px 20px rgba(0,0,0,.25);
+
+}
+
+.ken-burns{
+
+animation:kenburns 12s ease-in-out infinite alternate;
+
+}
+
+@keyframes kenburns{
+
+0%{
+
+transform:scale(1);
+
+}
+
+100%{
+
+transform:scale(1.12);
+
+}
+
+}
+
+.lyrics-container{
+
+height:38%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+padding:12px;
+
+font-size:1rem;
+
+line-height:1.7;
+
+}
+
+.wishes-wrapper{
+
+height:100%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+}
+
+.wish-title{
+
+font-size:2rem;
+
+font-family:"Cinzel Decorative",serif;
+
+color:#b8860b;
+
+}
+
+.komal-name{
+
+font-size:2.3rem;
+
+margin:12px 0;
+
+color:#ff4d6d;
+
+font-family:"Rozha One",serif;
+
+}
+
+.wish-letter{
+
+max-width:90%;
+
+line-height:1.8;
+
+font-size:.95rem;
+
+}
+
+.cake{
+
+margin-top:25px;
+
+font-size:4rem;
+
+}
+
+.swipe-hint{
+
+position:absolute;
+
+bottom:15px;
+
+width:100%;
+
+text-align:center;
+
+font-size:.85rem;
+
+color:#ddd;
+
+letter-spacing:1px;
+
+}
+
+@media(max-width:600px){
+
+.book-viewport{
+
+width:96vw;
+
+height:78vh;
+
+}
+
+.gold-title{
+
+font-size:1.7rem;
+
+}
+
+.cover-title{
+
+font-size:1.6rem;
+
+}
+
+.komal-name{
+
+font-size:2rem;
+
+}
+
 }
