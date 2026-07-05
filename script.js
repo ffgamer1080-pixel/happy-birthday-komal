@@ -1,130 +1,151 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Initialize the Particle Engine
-    const particles = new ParticleEngine();
-    particles.startLoop();
+document.addEventListener("DOMContentLoaded",()=>{
 
-    // Global Pipeline State References
-    const steps = {
-        1: document.getElementById("step1"),
-        2: document.getElementById("step2"),
-        3: document.getElementById("step3")
-    };
+const splash=document.getElementById("splashScreen");
 
-    let currentStep = 1;
+const countdown=document.getElementById("countdownScreen");
 
-    // Audio Element (Optional Integration)
-    // const bgMusic = new Audio("path/to/your/music.mp3");
-    // bgMusic.loop = true;
+const album=document.getElementById("albumContainer");
 
-    // --- PIPELINE ENGINE FUNCTIONS ---
+const startBtn=document.getElementById("startButton");
 
-    function switchStep(nextStep) {
-        if (steps[currentStep]) {
-            steps[currentStep].classList.remove("active");
-        }
-        if (steps[nextStep]) {
-            steps[nextStep].classList.add("active");
-            currentStep = nextStep;
-        }
-    }
+const replayBtn=document.getElementById("replayButton");
 
-    // STEP 1: Enter Button Trigger
-    const enterBtn = document.getElementById("enterBtn");
-    if (enterBtn) {
-        enterBtn.addEventListener("click", () => {
-            // if (bgMusic) bgMusic.play().catch(e => console.log("Audio play blocked:", e));
-            runCountdownPipeline();
-        });
-    }
+const count=document.getElementById("countdownNumber");
 
-    // STEP 2: Cinematic Countdown Pipeline
-    function runCountdownPipeline() {
-        switchStep(2);
-        const countdownDigit = document.getElementById("countdownDigit");
-        let count = 3;
+const music=document.getElementById("bgMusic");
 
-        countdownDigit.style.opacity = "1";
-        countdownDigit.style.transform = "scale(1)";
-        countdownDigit.textContent = count;
+const flip=document.getElementById("pageFlipSound");
 
-        const interval = setInterval(() => {
-            count--;
-            if (count > 0) {
-                // Animate count change gracefully
-                countdownDigit.style.transform = "scale(0.5)";
-                countdownDigit.style.opacity = "0";
-                
-                setTimeout(() => {
-                    countdownDigit.textContent = count;
-                    countdownDigit.style.transform = "scale(1)";
-                    countdownDigit.style.opacity = "1";
-                }, 200);
-            } else {
-                clearInterval(interval);
-                // Flash final burst effect before entering the book
-                countdownDigit.style.transform = "scale(2)";
-                countdownDigit.style.opacity = "0";
-                
-                setTimeout(() => {
-                    switchStep(3); // Enter Step 3: The 3D Book Layout
-                }, 400);
-            }
-        }, 1000);
-    }
+const pages=document.querySelectorAll(".page");
 
-    // STEP 3: 3D Book Interaction Logic
-    const pages = document.querySelectorAll(".page");
-    
-    pages.forEach((page, index) => {
-        // Set proper initial z-indexing for book layering stack
-        page.style.zIndex = pages.length - index;
+let currentPage=0;
 
-        page.addEventListener("click", (e) => {
-            // Prevent triggering page flips if interactive elements inside are clicked
-            if (e.target.closest(".gold-btn") || e.target.closest("button")) return;
+function showScreen(screen){
 
-            // Trigger dust particles dissolve effect based on click location coordinates
-            const rect = page.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-            
-            // Trigger particle dissolve burst from particles.js engine mechanics
-            particles.triggerDustDissolve(e.clientX, e.clientY);
+splash.classList.remove("active");
 
-            if (!page.classList.contains("flipped")) {
-                // Flip page forward
-                page.classList.add("flipped");
-                // Adjust dynamic stacking index so flipped page stays behind current top page
-                setTimeout(() => {
-                    page.style.zIndex = index + 1;
-                }, 300); // Wait for half-way through the 0.6s animation turn
-            } else {
-                // Optional: Flip page backward if user clicks on a flipped page corner
-                page.classList.remove("flipped");
-                setTimeout(() => {
-                    page.style.zIndex = pages.length - index;
-                }, 300);
-            }
-        });
-    });
+countdown.classList.remove("active");
 
-    // STEP 8: Celebration Reset Controller
-    const resetBtn = document.getElementById("resetBtn");
-    if (resetBtn) {
-        resetBtn.addEventListener("click", () => {
-            // High-performance flush on global variables and active memory arrays
-            particles.clearAllParticles();
+album.classList.remove("active");
 
-            // Reverse flip all book pages in reverse order stack structure
-            for (let i = pages.length - 1; i >= 0; i--) {
-                pages[i].classList.remove("flipped");
-                pages[i].style.zIndex = pages.length - i;
-            }
+screen.classList.add("active");
 
-            // Route execution map back to the primary welcome gateway screen
-            switchStep(1);
-            
-            // if (bgMusic) { bgMusic.pause(); bgMusic.currentTime = 0; }
-        });
-    }
+}
+
+startBtn.addEventListener("click",()=>{
+
+music.play().catch(()=>{});
+
+showScreen(countdown);
+
+startCountdown();
+
+});
+
+function startCountdown(){
+
+let n=3;
+
+count.innerHTML=n;
+
+const timer=setInterval(()=>{
+
+n--;
+
+if(n>0){
+
+count.innerHTML=n;
+
+}else{
+
+clearInterval(timer);
+
+showScreen(album);
+
+}
+
+},1000);
+
+}
+
+pages.forEach((page,index)=>{
+
+page.style.zIndex=pages.length-index;
+
+page.addEventListener("click",()=>{
+
+if(currentPage!==index)return;
+
+page.classList.add("flipped");
+
+if(flip){
+
+flip.currentTime=0;
+
+flip.play().catch(()=>{});
+
+}
+
+currentPage++;
+
+});
+
+});
+
+let touchStart=0;
+
+album.addEventListener("touchstart",(e)=>{
+
+touchStart=e.touches[0].clientX;
+
+});
+
+album.addEventListener("touchend",(e)=>{
+
+const touchEnd=e.changedTouches[0].clientX;
+
+if(touchStart-touchEnd>50){
+
+if(currentPage<pages.length){
+
+pages[currentPage].click();
+
+}
+
+}
+
+if(touchEnd-touchStart>50){
+
+if(currentPage>0){
+
+currentPage--;
+
+pages[currentPage].classList.remove("flipped");
+
+pages[currentPage].style.zIndex=pages.length-currentPage;
+
+}
+
+}
+
+});
+
+replayBtn.addEventListener("click",()=>{
+
+pages.forEach((page,index)=>{
+
+page.classList.remove("flipped");
+
+page.style.zIndex=pages.length-index;
+
+});
+
+currentPage=0;
+
+music.currentTime=0;
+
+showScreen(splash);
+
+});
+
 });
