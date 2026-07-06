@@ -1,453 +1,163 @@
-/* --- LUXURY THEME CONFIGURATION --- */
-:root {
-    --bg-gradient: linear-gradient(135deg, #0d0814 0%, #1a0f2e 50%, #05020a 100%);
-    --gold-primary: #d4af37;
-    --gold-secondary: #aa7c11;
-    --gold-light: #f3e5ab;
-    --glass-bg: rgba(25, 15, 40, 0.5);
-    --glass-border: rgba(212, 175, 55, 0.25);
-    --font-serif: 'Georgia', serif;
-    --luxury-shadow: 0 24px 48px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.1);
+:root{
+
+--bg:#050102;
+--gold:#f7d774;
+--white:#fff;
+--rose:#ff4d6d;
+--glass:rgba(255,255,255,.08);
+--shadow:0 20px 45px rgba(0,0,0,.45);
+
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-    -webkit-user-select: none;
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
 }
 
-body {
-    background: var(--bg-gradient);
-    font-family: var(--font-serif);
-    color: #fff;
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+html,body{
+
+width:100%;
+height:100%;
+overflow:hidden;
+background:var(--bg);
+color:var(--white);
+font-family:"Poppins",sans-serif;
+-webkit-tap-highlight-color:transparent;
+
 }
 
-/* --- PARTICLE CANVAS --- */
-#particleCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
+body{
+
+position:relative;
+display:flex;
+justify-content:center;
+align-items:center;
+touch-action:manipulation;
+
 }
 
-/* --- EFFECTS CONTAINER --- */
-#effectsContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 15;
-    pointer-events: none;
-    overflow: hidden;
+canvas{
+
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:1;
+
 }
 
-/* --- GLASSMORPHISM CARD COMMON --- */
-.glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    box-shadow: var(--luxury-shadow);
+.background-glow{
+
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at top,
+rgba(247,215,116,.18),
+transparent 60%);
+pointer-events:none;
+z-index:2;
+
 }
 
-/* --- SPLASH SCREEN --- */
-#splashScreen {
-    position: fixed;
-    z-index: 20;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
+.screen{
+
+position:absolute;
+inset:0;
+display:none;
+justify-content:center;
+align-items:center;
+z-index:5;
+
 }
 
-#splashScreen.hidden {
-    opacity: 0;
-    visibility: hidden;
+.screen.active{
+
+display:flex;
+
 }
 
-.splash-content {
-    padding: 3rem;
-    text-align: center;
-    max-width: 600px;
-    width: 90%;
+.welcome-card{
+
+width:min(92vw,380px);
+padding:34px;
+border-radius:24px;
+background:var(--glass);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,.12);
+box-shadow:var(--shadow);
+text-align:center;
+
 }
 
-.luxury-title {
-    font-size: 2.5rem;
-    font-weight: 300;
-    letter-spacing: 4px;
-    background: linear-gradient(to right, var(--gold-light), var(--gold-primary), var(--gold-secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 1rem;
+.title{
+
+font:700 2rem "Cinzel Decorative",serif;
+color:var(--gold);
+margin-bottom:12px;
+
 }
 
-.luxury-subtitle {
-    font-size: 1.1rem;
-    color: #dcd1eb;
-    margin-bottom: 2.5rem;
-    font-style: italic;
-    line-height: 1.6;
+.name{
+
+font:700 2.35rem "Cinzel",serif;
+margin-bottom:14px;
+
 }
 
-/* --- LUXURY BUTTONS --- */
-.luxury-btn {
-    background: transparent;
-    border: 1px solid var(--gold-primary);
-    color: var(--gold-primary);
-    padding: 0.8rem 2rem;
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+.subtitle{
+
+line-height:1.8;
+opacity:.9;
+margin-bottom:28px;
+
 }
 
-.luxury-btn:hover {
-    background: var(--gold-primary);
-    color: #0d0814;
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-    text-shadow: none;
+.gold-btn{
+
+padding:14px 34px;
+border:none;
+border-radius:999px;
+background:linear-gradient(135deg,#f7d774,#ffb347);
+color:#222;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+box-shadow:0 10px 25px rgba(247,215,116,.35);
+
 }
 
-.small-btn {
-    padding: 0.6rem 1.5rem;
-    font-size: 0.85rem;
+.gold-btn:hover{
+
+transform:scale(1.05);
+
 }
 
-/* --- COUNTDOWN OVERLAY --- */
-#countdownOverlay {
-    position: fixed;
-    z-index: 19;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #05020a;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.6s ease;
+.gold-btn:active{
+
+transform:scale(.96);
+
 }
 
-#countdownOverlay.hidden {
-    opacity: 0;
-    pointer-events: none;
+.countdown-number{
+
+font:700 7rem "Cinzel Decorative",serif;
+color:var(--gold);
+text-shadow:0 0 25px rgba(247,215,116,.75);
+animation:pulse 1s infinite;
+
 }
 
-.countdown-circle {
-    width: 120px;
-    height: 120px;
-    border: 2px solid var(--gold-primary);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
+@keyframes pulse{
+
+50%{
+
+transform:scale(1.15);
+
 }
 
-#countdownNumber {
-    font-size: 3.5rem;
-    color: var(--gold-primary);
-}
-
-.countdown-text {
-    letter-spacing: 2px;
-    font-size: 0.9rem;
-    color: #a496b8;
-}
-
-/* --- MAIN ALBUM WORKSPACE --- */
-#albumContainer {
-    position: relative;
-    z-index: 10;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    perspective: 2000px;
-    transition: opacity 1s ease;
-}
-
-#albumContainer.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.book-wrapper {
-    width: 450px;
-    height: 600px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.5s ease;
-}
-
-.book {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-}
-
-/* --- REAL 3D BOOK PAGES --- */
-.page {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    transform-origin: left center;
-    transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-    background: #140d24;
-    border-radius: 0 12px 12px 0;
-    box-shadow: inset 30px 0 50px rgba(0,0,0,0.5), 10px 0 20px rgba(0,0,0,0.3);
-    overflow: hidden;
-}
-
-/* Active Class states assigned by JS flips */
-.page.flipped {
-    transform: rotateY(-180px);
-}
-
-.page-content {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-}
-
-/* Handles mirror orientation inside turned leaves */
-.page.flipped .page-content {
-    transform: rotateY(180deg);
-}
-
-/* --- COVERS (FRONT & BACK) --- */
-.cover-page {
-    background: linear-gradient(135deg, #1c1130 0%, #0d071a 100%);
-    border: 2px solid var(--gold-secondary);
-}
-
-.front-cover {
-    border-radius: 0 12px 12px 0;
-}
-
-.back-cover {
-    border-radius: 12px 0 0 12px;
-}
-
-.cover-content .gold-border {
-    border: 1px solid var(--gold-primary);
-    height: 100%;
-    width: 100%;
-    padding: 2.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-}
-
-.emblem {
-    font-size: 3rem;
-    color: var(--gold-primary);
-    margin-bottom: 2rem;
-}
-
-.cover-title {
-    font-size: 2.2rem;
-    font-weight: 400;
-    color: #fff;
-    letter-spacing: 3px;
-    margin-bottom: 0.5rem;
-}
-
-.cover-title-end {
-    font-size: 1.8rem;
-    color: #fff;
-    letter-spacing: 2px;
-    margin-bottom: 1.5rem;
-}
-
-.cover-subtitle {
-    color: var(--gold-primary);
-    font-size: 1.1rem;
-    font-style: italic;
-    margin-bottom: 4rem;
-}
-
-.instruction-text {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.4);
-    position: absolute;
-    bottom: 2rem;
-    letter-spacing: 1px;
-}
-
-/* --- PHOTO PAGE STRUCTURE --- */
-.photo-page {
-    background: #11091f;
-    justify-content: flex-start;
-    gap: 1.5rem;
-}
-
-.frame-container {
-    width: 100%;
-    height: 65%;
-    border: 4px double var(--gold-primary);
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-    border-radius: 4px;
-}
-
-.frame-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* --- LYRICS DISCOVERY SYSTEM --- */
-.lyrics-box {
-    height: 25%;
-    padding: 0.5rem;
-    font-style: italic;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    text-align: center;
-    color: var(--gold-light);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* --- BIRTHDAY EXPRESSION INNER PAGE --- */
-.birthday-page {
-    background: #160e29;
-}
-
-.letter-content {
-    padding: 3rem 2rem;
-    justify-content: center;
-}
-
-.scroll-inner {
-    border-left: 1px solid var(--gold-border);
-    padding-left: 1.5rem;
-}
-
-.letter-title {
-    font-size: 2rem;
-    color: var(--gold-primary);
-    margin-bottom: 1.5rem;
-    letter-spacing: 1px;
-}
-
-.letter-body {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: #e3daf0;
-    margin-bottom: 2rem;
-}
-
-.signature {
-    font-size: 1.1rem;
-    color: var(--gold-primary);
-    font-weight: bold;
-}
-
-/* --- BOOK CONTROLS HUD --- */
-.book-nav {
-    margin-top: 2rem;
-    display: flex;
-    gap: 3rem;
-    z-index: 11;
-}
-
-.nav-arrow {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    color: var(--gold-primary);
-    font-size: 1.5rem;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-.nav-arrow:hover:not(:disabled) {
-    background: var(--gold-primary);
-    color: #0d0814;
-    box-shadow: 0 0 15px var(--gold-primary);
-}
-
-.nav-arrow:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-}
-
-/* --- EFFECT DESIGNS --- */
-.heart, .petal, .sparkle {
-    position: absolute;
-    pointer-events: none;
-    z-index: 16;
-}
-
-/* --- ANIMATION LOOPS --- */
-@keyframes glowPulse {
-    0% { text-shadow: 0 0 8px rgba(212,175,55,0.2); }
-    50% { text-shadow: 0 0 20px rgba(212,175,55,0.6); }
-    100% { text-shadow: 0 0 8px rgba(212,175,55,0.2); }
-}
-
-.animate-glow {
-    animation: glowPulse 3s infinite ease-in-out;
-}
-
-/* --- RESPONSIVE ADJUSTMENTS --- */
-@media (max-width: 500px) {
-    .book-wrapper {
-        width: 90vw;
-        height: 125vw;
-    }
-    .cover-title { font-size: 1.6rem; }
-    .cover-subtitle { margin-bottom: 2rem; }
-    .letter-title { font-size: 1.5rem; }
-    .letter-body { font-size: 0.9rem; line-height: 1.6; }
-    .lyrics-box { font-size: 0.9rem; }
 }
