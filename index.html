@@ -1,138 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Eternal Memories | Happy Birthday</title>
-    <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+
+<meta name="theme-color" content="#050102">
+
+<title>Happy Birthday Komal ❤️</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cinzel:wght@400;700&family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
-    <canvas id="particleCanvas"></canvas>
 
-    <audio id="bgMusic" src="assets/music/romantic_track.mp3" loop></audio>
-    <audio id="flipSound" src="assets/music/page_flip.mp3"></audio>
+<canvas id="particleCanvas"></canvas>
 
-    <div id="effectsContainer"></div>
+<div class="background-glow"></div>
 
-    <section id="splashScreen" class="active">
-        <div class="glass-card splash-content">
-            <h1 class="luxury-title animate-glow">A Journey Through Time</h1>
-            <p class="luxury-subtitle">Every second with you is a treasure worth keeping.</p>
-            <button id="openBookBtn" class="luxury-btn">Open the Book of Memories</button>
-        </div>
-    </section>
+<section id="splashScreen" class="screen active">
 
-    <section id="countdownOverlay" class="hidden">
-        <div class="countdown-circle">
-            <span id="countdownNumber">3</span>
-        </div>
-        <p class="countdown-text">Preparing your premium experience...</p>
-    </section>
+<div class="welcome-card">
 
-    <main id="albumContainer" class="hidden">
-        <div class="book-wrapper">
-            <div class="book" id="memoryBook">
-                
-                <div class="page cover-page front-cover" id="page0" style="z-index: 9;">
-                    <div class="page-content cover-content">
-                        <div class="gold-border">
-                            <div class="emblem">⚜</div>
-                            <h1 class="cover-title">The Book of Us</h1>
-                            <p class="cover-subtitle">Happy Birthday, My Love</p>
-                            <span class="instruction-text">Click right edge or swipe to turn →</span>
-                        </div>
-                    </div>
-                </div>
+<h1 class="title">❤️ Happy Birthday ❤️</h1>
 
-                <div class="page" id="page1" style="z-index: 8;">
-                    <div class="page-content photo-page">
-                        <div class="frame-container">
-                            <img src="assets/photos/pic1.jpg" alt="Memory One" class="kb-effect">
-                        </div>
-                        <div class="lyrics-box" id="lyricsBox1"></div>
-                    </div>
-                </div>
+<h2 class="name">Komal</h2>
 
-                <div class="page" id="page2" style="z-index: 7;">
-                    <div class="page-content photo-page">
-                        <div class="frame-container">
-                            <img src="assets/photos/pic2.jpg" alt="Memory Two" class="kb-effect">
-                        </div>
-                        <div class="lyrics-box" id="lyricsBox2"></div>
-                    </div>
-                </div>
+<p class="subtitle">
 
-                <div class="page" id="page3" style="z-index: 6;">
-                    <div class="page-content photo-page">
-                        <div class="frame-container">
-                            <img src="assets/photos/pic3.jpg" alt="Memory Three" class="kb-effect">
-                        </div>
-                        <div class="lyrics-box" id="lyricsBox3"></div>
-                    </div>
-                </div>
+A Luxury Memory Book Made With Love ❤️
 
-                <div class="page" id="page4" style="z-index: 5;">
-                    <div class="page-content photo-page">
-                        <div class="frame-container">
-                            <img src="assets/photos/pic4.jpg" alt="Memory Four" class="kb-effect">
-                        </div>
-                        <div class="lyrics-box" id="lyricsBox4"></div>
-                    </div>
-                </div>
+</p>
 
-                <div class="page" id="page5" style="z-index: 4;">
-                    <div class="page-content photo-page">
-                        <div class="frame-container">
-                            <img src="assets/photos/pic5.jpg" alt="Memory Five" class="kb-effect">
-                        </div>
-                        <div class="lyrics-box" id="lyricsBox5"></div>
-                    </div>
-                </div>
+<button id="startButton" class="gold-btn">
 
-                <div class="page" id="page6" style="z-index: 3;">
-                    <div class="page-content photo-page">
-                        <div class="frame-container">
-                            <img src="assets/photos/pic6.jpg" alt="Memory Six" class="kb-effect">
-                        </div>
-                        <div class="lyrics-box" id="lyricsBox6"></div>
-                    </div>
-                </div>
+Open Book
 
-                <div class="page birthday-page" id="page7" style="z-index: 2;">
-                    <div class="page-content letter-content">
-                        <div class="scroll-inner">
-                            <h2 class="letter-title">Happy Birthday!</h2>
-                            <p class="letter-body">
-                                To the one who fills my life with endless light and beauty. Today we celebrate the wonderful soul you are. May your year ahead be as breathtakingly beautiful as the memories we have shared, and those we have yet to create. Cheers to your special day, my love!
-                            </p>
-                            <div class="signature">Forever Yours ❤️</div>
-                        </div>
-                    </div>
-                </div>
+</button>
 
-                <div class="page cover-page back-cover" id="page8" style="z-index: 1;">
-                    <div class="page-content cover-content">
-                        <div class="gold-border">
-                            <h2 class="cover-title-end">Our Story Continues</h2>
-                            <p class="cover-subtitle">To Be Continued...</p>
-                            <button id="replayBtn" class="luxury-btn small-btn">Replay Journey</button>
-                        </div>
-                    </div>
-                </div>
+</div>
 
-            </div>
-        </div>
+</section>
 
-        <div class="book-nav">
-            <button id="prevBtn" class="nav-arrow" disabled>&larr;</button>
-            <button id="nextBtn" class="nav-arrow">&rarr;</button>
-        </div>
-    </main>
+<section id="countdownScreen" class="screen">
 
-    <script src="particles.js"></script>
-    <script src="lyrics.js"></script>
-    <script src="effects.js"></script>
-    <script src="script.js"></script>
+<div id="countdownNumber" class="countdown-number">
+
+3
+
+</div>
+
+</section>
+
+<section id="albumContainer" class="screen">
+
+<div id="book" class="book">
+
+<!-- Front Cover -->
+
+<div class="page cover front-cover">
+
+<div class="cover-content">
+
+<img src="assets/photos/front.jpg" class="cover-image" alt="Front Cover">
+
+<div class="cover-overlay">
+
+<h2 class="cover-title">
+
+Dastaan-E-Ishq ❤️
+
+</h2>
+
+<p class="cover-subtitle">
+
+A Book Of Beautiful Memories
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Photo Page 1 -->
+
+<div class="page">
+
+<div class="page-content">
+
+<img src="assets/photos/pic1.jpg" class="photo kenburns" alt="Photo 1">
+
+<div id="lyricsBox1" class="lyrics-container"></div>
+
+</div>
+
+</div>
+
+<!-- Photo Page 2 -->
+
+<div class="page">
+
+<div class="page-content">
+
+<img src="assets/photos/pic2.jpg" class="photo kenburns" alt="Photo 2">
+
+<div id="lyricsBox2" class="lyrics-container"></div>
+
+</div>
+
+</div>
+
+<!-- Photo Page 3 -->
+
+<div class="page">
+
+<div class="page-content">
+
+<img src="assets/photos/pic3.jpg" class="photo kenburns" alt="Photo 3">
+
+<div id="lyricsBox3" class="lyrics-container"></div>
+
+</div>
+
+</div>
+<!-- Photo Page 4 -->
+
+<div class="page">
+
+<div class="page-content">
+
+<img src="assets/photos/pic4.jpg" class="photo kenburns" alt="Photo 4">
+
+<div id="lyricsBox4" class="lyrics-container"></div>
+
+</div>
+
+</div>
+
+<!-- Photo Page 5 -->
+
+<div class="page">
+
+<div class="page-content">
+
+<img src="assets/photos/pic5.jpg" class="photo kenburns" alt="Photo 5">
+
+<div id="lyricsBox5" class="lyrics-container"></div>
+
+</div>
+
+</div>
+
+<!-- Photo Page 6 -->
+
+<div class="page">
+
+<div class="page-content">
+
+<img src="assets/photos/pic6.jpg" class="photo kenburns" alt="Photo 6">
+
+<div id="lyricsBox6" class="lyrics-container"></div>
+
+</div>
+
+</div>
+
+<!-- Birthday Page -->
+
+<div class="page birthday-page">
+
+<div class="page-content birthday-content">
+
+<h1 class="birthday-title">
+
+Happy Birthday ❤️
+
+</h1>
+
+<h2 class="birthday-name">
+
+Komal
+
+</h2>
+
+<p class="birthday-message">
+
+May your life always be filled with happiness, love, success and beautiful memories.
+Stay blessed forever ❤️
+
+</p>
+
+</div>
+
+</div>
+
+<!-- Back Cover -->
+
+<div class="page cover back-cover">
+
+<div class="cover-content">
+
+<img src="assets/photos/back.jpg" class="cover-image" alt="Back Cover">
+
+<div class="cover-overlay">
+
+<h2 class="cover-title">
+
+Forever ❤️
+
+</h2>
+
+<p class="cover-subtitle">
+
+Made With Love
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="swipe-hint">
+
+⬅️ Swipe Left / Right ➜
+
+</div>
+
+</section>
+
+<audio id="bgMusic" src="assets/music/romantic_track.mp3" preload="auto" loop></audio>
+
+<script src="particles.js"></script>
+
+<script src="lyrics.js"></script>
+
+<script src="effects.js"></script>
+
+<script src="script.js"></script>
+
 </body>
-</html>
 
+</html>
