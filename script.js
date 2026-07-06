@@ -1,199 +1,115 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // UI Elements
-    const splashScreen = document.getElementById("splashScreen");
-    const openBookBtn = document.getElementById("openBookBtn");
-    const countdownOverlay = document.getElementById("countdownOverlay");
-    const countdownNumber = document.getElementById("countdownNumber");
-    const albumContainer = document.getElementById("albumContainer");
-    const memoryBook = document.getElementById("memoryBook");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const replayBtn = document.getElementById("replayBtn");
+document.addEventListener("DOMContentLoaded",()=>{
 
-    // Audio Elements
-    const bgMusic = document.getElementById("bgMusic");
-    const flipSound = document.getElementById("flipSound");
+const $=id=>document.getElementById(id);
 
-    // Book Layout State Tracking
-    let currentPageIndex = 0;
-    const pages = document.querySelectorAll(".page");
-    const totalPages = pages.length;
+const splash=$("splashScreen"),
+countdown=$("countdownScreen"),
+album=$("albumContainer"),
+startBtn=$("startButton"),
+countNum=$("countdownNumber"),
+music=$("bgMusic"),
+pages=[...document.querySelectorAll(".page")];
 
-    // --- INITIALIZATION ---
-    // Enforce default stacked order mapping indices safely
-    function initializeStackZ() {
-        pages.forEach((page, index) => {
-            page.style.zIndex = totalPages - index;
-        });
-    }
-    initializeStackZ();
+let current=0,startX=0;
 
-    // --- AUDIO WRAPPER SYSTEM ---
-    function safePlayAudio(audioElement) {
-        if (!audioElement) return;
-        audioElement.play().catch(() => {
-            console.log("Audio playback deferred or context failed safely.");
-        });
-    }
+const show=el=>{
 
-    function safeResetAudio(audioElement) {
-        if (!audioElement) return;
-        audioElement.currentTime = 0;
-    }
+document.querySelectorAll(".screen")
+.forEach(s=>s.classList.remove("active"));
 
-    // --- FLOW MANAGER: SPLASH TO APP ---
-    openBookBtn.addEventListener("click", () => {
-        splashScreen.classList.add("hidden");
-        countdownOverlay.classList.remove("hidden");
-        
-        // Start Sound immediately on action
-        safePlayAudio(bgMusic);
-        runIntroCountdown();
-    });
+el?.classList.add("active");
 
-    function runIntroCountdown() {
-        let count = 3;
-        countdownNumber.textContent = count;
-        
-        const interval = setInterval(() => {
-            count--;
-            if (count > 0) {
-                countdownNumber.textContent = count;
-            } else {
-                clearInterval(interval);
-                revealLuxuryAlbum();
-            }
-        }, 1000);
-    }
+};
 
-    function revealLuxuryAlbum() {
-        countdownOverlay.classList.add("hidden");
-        albumContainer.classList.remove("hidden");
-        // Trigger initial canvas resize configuration alignment
-        if (window.resizeCanvas) {
-            window.resizeCanvas();
-        }
-        // Initialize dynamic lyrics presentation on cover opening readiness
-        if (window.LyricsEngine && window.LyricsEngine.init) {
-            window.LyricsEngine.init();
-        }
-    }
+const resetBook=()=>{
 
-    // --- BOOK PHYSICS & TRANSFORMATION NAVIGATION ---
-    function turnPageForward() {
-        if (currentPageIndex >= totalPages - 1) return;
+current=0;
 
-        safeResetAudio(flipSound);
-        safePlayAudio(flipSound);
+pages.forEach((p,i)=>{
 
-        const pageToFlip = document.getElementById(`page${currentPageIndex}`);
-        if (pageToFlip) {
-            pageToFlip.classList.add("flipped");
-            // Lower zIndex so underlying pages are visible and interactable
-            pageToFlip.style.zIndex = currentPageIndex + 1;
-        }
+p.classList.remove("flipped");
 
-        currentPageIndex++;
-        updateNavigationButtons();
-        
-        // Trigger page-specific reveal animation enhancements
-        if (window.EffectsEngine && window.EffectsEngine.onPageReveal) {
-            window.EffectsEngine.onPageReveal(currentPageIndex);
-        }
-    }
+p.style.zIndex=pages.length-i;
 
-    function turnPageBackward() {
-        if (currentPageIndex <= 0) return;
+});
 
-        safeResetAudio(flipSound);
-        safePlayAudio(flipSound);
+};
 
-        currentPageIndex--;
-        
-        const pageToRestore = document.getElementById(`page${currentPageIndex}`);
-        if (pageToRestore) {
-            pageToRestore.classList.remove("flipped");
-            // Restore default stack weight assignment depth mapping
-            pageToRestore.style.zIndex = totalPages - currentPageIndex;
-        }
+resetBook();
 
-        updateNavigationButtons();
-        
-        if (window.EffectsEngine && window.EffectsEngine.onPageReveal) {
-            window.EffectsEngine.onPageReveal(currentPageIndex);
-        }
-    }
+const countdownStart=()=>{
 
-    function updateNavigationButtons() {
-        prevBtn.disabled = (currentPageIndex === 0);
-        nextBtn.disabled = (currentPageIndex === totalPages - 1);
-    }
+let n=3;
 
-    // --- INTERACTION LISTENERS ---
-    nextBtn.addEventListener("click", turnPageForward);
-    prevBtn.addEventListener("click", turnPageBackward);
+countNum.textContent=n;
 
-    // Book Click Surface Target Turning Fallback Detection
-    memoryBook.addEventListener("click", (e) => {
-        // Exclude interactive core components inside cover pages (e.g., Replay Action Button)
-        if (e.target.closest("button") || e.target.closest(".lyrics-box")) return;
+const timer=setInterval(()=>{
 
-        const rect = memoryBook.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        
-        if (clickX > rect.width / 2) {
-            turnPageForward();
-        } else {
-            turnPageBackward();
-        }
-    });
+countNum.textContent=--n;
 
-    // --- MOBILE GESTURE SWIPE MANAGEMENT ---
-    let touchStartX = 0;
-    memoryBook.addEventListener("touchstart", (e) => {
-        touchStartX = e.changedTouches[0].clientX;
-    }, { passive: true });
+if(n===0){
 
-    memoryBook.addEventListener("touchend", (e) => {
-        let touchEndX = e.changedTouches[0].clientX;
-        let deltaX = touchEndX - touchStartX;
+clearInterval(timer);
 
-        if (Math.abs(deltaX) > 60) {
-            if (deltaX < 0) {
-                turnPageForward();
-            } else {
-                turnPageBackward();
-            }
-        }
-    }, { passive: true });
+show(album);
 
-    // --- REPLAY FLOW RESET ---
-    replayBtn.addEventListener("click", (e) => {
-        e.stopPropagation(); // Avoid triggering page click physics bubble
-        
-        // Unroll stack arrays backwards sequentially
-        for (let i = totalPages - 1; i >= 0; i--) {
-            const page = document.getElementById(`page${i}`);
-            if (page) {
-                page.classList.remove("flipped");
-            }
-        }
-        
-        currentPageIndex = 0;
-        initializeStackZ();
-        updateNavigationButtons();
-        safeResetAudio(bgMusic);
-        safePlayAudio(bgMusic);
+}
 
-        if (window.LyricsEngine && window.LyricsEngine.resetAll) {
-            window.LyricsEngine.resetAll();
-        }
-    });
+},1000);
 
-    // Handle standard layout changes
-    window.addEventListener("resize", () => {
-        if (window.resizeCanvas) {
-            window.resizeCanvas();
-        }
-    });
+};
+
+startBtn?.addEventListener("click",()=>{
+
+music?.play().catch(()=>{});
+
+show(countdown);
+
+countdownStart();
+
+});
+pages.forEach((page,i)=>{
+
+page.addEventListener("click",()=>{
+
+if(i!==current)return;
+
+page.classList.add("flipped");
+
+current++;
+
+});
+
+});
+
+album?.addEventListener("touchstart",e=>{
+
+startX=e.touches[0].clientX;
+
+},{passive:true});
+
+album?.addEventListener("touchend",e=>{
+
+const endX=e.changedTouches[0].clientX;
+
+const diff=startX-endX;
+
+if(diff>50&&current<pages.length){
+
+pages[current].click();
+
+}
+
+if(diff<-50&&current>0){
+
+current--;
+
+pages[current].classList.remove("flipped");
+
+}
+
+});
+
+window.addEventListener("resize",resetBook);
+
 });
